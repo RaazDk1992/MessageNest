@@ -3,11 +3,23 @@ import { Image, View, StyleSheet, Text } from 'react-native';
 import { Card } from 'react-native-paper';
 import app_logo from '../assets/images/logo-with-name.png';
 import Colors from '../assets/Colors';
+import MNinput from './MNinput'; 
+import { useForm } from 'react-hook-form'; 
 
 const Login = () => {
+    const { control, handleSubmit, formState: { errors } } = useForm(); 
+
+    const onSubmit = (data) => {
+        console.log('Form Data:', data);
+        alert('Form submitted successfully!');
+    };
+
     return (
         <View style={styles.container}>
+            {/* Display logo */}
             <Image source={app_logo} style={styles.logo} />
+            
+            {/* Card Component */}
             <Card style={styles.login_card}>
                 <View style={styles.cardTitleWrapper}>
                     <Card.Title 
@@ -16,7 +28,17 @@ const Login = () => {
                     />
                 </View>
                 <Card.Content>
-                    <Text>dfdf</Text>
+                    {/* Display error message if the input is invalid */}
+                    {errors.username && <Text style={styles.errorText}>{errors.username.message}</Text>}
+
+                    {/* MNinput Field for username */}
+                    <MNinput
+                        control={control}  // Control from react-hook-form
+                        name="username"  // Field name
+                        placeholder="Username"  // Placeholder text
+                        rules={{ required: 'Username is required' }}  // Validation rule
+                        error={errors.username?.message}  // Error message to display if any
+                    />
                 </Card.Content>
             </Card>
         </View>
@@ -33,8 +55,8 @@ const styles = StyleSheet.create({
     },
     login_card: {
         width: '80%',
-        borderRadius: 10, // Ensure the card itself has rounded corners
-        overflow: 'hidden', // Ensures child content respects the card's borderRadius
+        borderRadius: 10,
+        overflow: 'hidden',
     },
     logo: {
         width: '29%',
@@ -48,7 +70,12 @@ const styles = StyleSheet.create({
     cardTitleText: {
         color: 'white',
         textAlign: 'center',
-        fontWeight:'bold'
+        fontWeight: 'bold',
+    },
+    errorText: {
+        color: 'red',
+        fontSize: 14,
+        marginBottom: 10,
     },
 });
 

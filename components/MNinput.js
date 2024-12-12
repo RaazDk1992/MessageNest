@@ -1,0 +1,64 @@
+import React, { useState } from 'react';
+import { TextInput, Text, StyleSheet } from 'react-native';
+import { Controller } from 'react-hook-form';
+import Colors from '../assets/Colors';
+
+const MNinput = ({ control, name, rules, placeholder, secureTextEntry, error }) => {
+    const [isFocused, setIsFocused] = useState(false); // Track focus state
+
+    return (
+        <>
+            <Controller
+                control={control}
+                name={name}
+                rules={rules}
+                render={({ field: { onChange, onBlur, value } }) => (
+                    <TextInput
+                        style={[
+                            styles.input,
+                            isFocused ? styles.focusedInput : styles.defaultInput, // Border color based on focus
+                            error && styles.errorInput, // Red border when error occurs
+                        ]}
+                        placeholder={placeholder}
+                        secureTextEntry={secureTextEntry}
+                        onBlur={() => {
+                            setIsFocused(false);
+                            onBlur(); // Call onBlur from react-hook-form
+                        }}
+                        onFocus={() => setIsFocused(true)} // Set focus to true when the input is focused
+                        onChangeText={onChange} // Correctly bind onChange to react-hook-form
+                        value={value || ''} // Ensure value is a string
+                    />
+                )}
+            />
+            {error && <Text style={styles.errorText}>{error}</Text>}
+        </>
+    );
+};
+
+const styles = StyleSheet.create({
+    input: {
+        height: 40,
+        borderWidth: 1,
+        borderRadius: 5,
+        marginBottom: 10,
+        paddingHorizontal: 10,
+        backgroundColor: '#fff',
+        marginTop:10
+    },
+    defaultInput: {
+        borderColor: '#ccc', // Grey border by default
+    },
+    focusedInput: {
+        borderColor: Colors.bg_primary, // Red border when focused
+    },
+    errorInput: {
+        borderColor: '#b00020', // Red border when error occurs
+    },
+    errorText: {
+        color: '#b00020',
+        marginBottom: 10,
+    },
+});
+
+export default MNinput;
