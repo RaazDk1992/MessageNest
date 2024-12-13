@@ -62,8 +62,8 @@ const Register = ({navigation}) => {
                             Submit
                         </Button>
 
+                        <Button icon="chevron-left" onPress={()=>navigation.navigate('login')}>Back To Login</Button>
 
-                        <TouchableOpacity onPress={()=>navigation.navigate('login')} ><Text>Back to Login</Text></TouchableOpacity>
                 </Card.Content>
             </Card>
         </View>
