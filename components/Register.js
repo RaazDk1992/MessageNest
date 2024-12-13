@@ -6,7 +6,7 @@ import Colors from '../assets/Colors';
 import MNinput from '../utility/MNinput'; 
 import { useForm } from 'react-hook-form'; 
 
-const Login = ({navigation}) => {
+const Register = ({navigation}) => {
     const { control, handleSubmit, formState: { errors } } = useForm(); 
 
     const onSubmit = (data) => {
@@ -23,7 +23,7 @@ const Login = ({navigation}) => {
             <Card style={styles.login_card}>
                 <View style={styles.cardTitleWrapper}>
                     <Card.Title 
-                        title="Login" 
+                        title="Regiser" 
                         titleStyle={styles.cardTitleText} 
                     />
                 </View>
@@ -63,7 +63,7 @@ const Login = ({navigation}) => {
                         </Button>
 
 
-                        <TouchableOpacity onPress={()=>navigation.navigate('register')} ><Text>Registe</Text></TouchableOpacity>
+                        <TouchableOpacity onPress={()=>navigation.navigate('login')} ><Text>Back to Login</Text></TouchableOpacity>
                 </Card.Content>
             </Card>
         </View>
@@ -109,4 +109,4 @@ const styles = StyleSheet.create({
     }
 });
 
-export default Login;
+export default Register;

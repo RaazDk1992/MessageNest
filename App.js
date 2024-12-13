@@ -2,15 +2,19 @@ import React from 'react';
 import { SafeAreaView, ScrollView, StyleSheet } from 'react-native';
 import { Provider as PaperProvider, Card, Text, Button } from 'react-native-paper';
 import Login from './components/Login';
+import { NavigationContainer } from '@react-navigation/native';
+import AuthNavigation from './components/AuthNavigation';
 
 
 const App = () => {
   return (
-    <PaperProvider>
+    <NavigationContainer>
+      <PaperProvider>
       <SafeAreaView style={styles.container}>
-        <Login/>
+        <AuthNavigation/>
       </SafeAreaView>
     </PaperProvider>
+    </NavigationContainer>
   );
 };
 

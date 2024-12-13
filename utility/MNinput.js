@@ -3,11 +3,12 @@ import { TextInput, Text, StyleSheet } from 'react-native';
 import { Controller } from 'react-hook-form';
 import Colors from '../assets/Colors';
 
-const MNinput = ({ control, name, rules, placeholder, secureTextEntry, error }) => {
+const MNinput = ({ control, name, rules, placeholder,label , secureTextEntry, error, }) => {
     const [isFocused, setIsFocused] = useState(false); // Track focus state
 
     return (
         <>
+            {label && <Text>{label}</Text>}
             <Controller
                 control={control}
                 name={name}
@@ -20,6 +21,7 @@ const MNinput = ({ control, name, rules, placeholder, secureTextEntry, error }) 
                             error && styles.errorInput, // Red border when error occurs
                         ]}
                         placeholder={placeholder}
+                      
                         secureTextEntry={secureTextEntry}
                         onBlur={() => {
                             setIsFocused(false);
