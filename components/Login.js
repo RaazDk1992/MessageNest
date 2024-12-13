@@ -63,7 +63,7 @@ const Login = ({navigation}) => {
                         </Button>
 
 
-                        <TouchableOpacity onPress={()=>navigation.navigate('register')} ><Text>Registe</Text></TouchableOpacity>
+                        <TouchableOpacity onPress={()=>navigation.navigate('register')} ><Text style={{marginTop:10, fontWeight:'bold', color:Colors.bg_primary}}> No Account?,Register</Text></TouchableOpacity>
                 </Card.Content>
             </Card>
         </View>
