@@ -3,7 +3,7 @@ import { SafeAreaView, StyleSheet, Text, View } from "react-native";
 import { useForm } from "react-hook-form";
 import MNinput from "../utility/MNinput"; // Custom MNinput component
 import { StatusBar } from "react-native";
-
+import { IconButton } from "react-native-paper";
 const CreatePost = () => {
   const { control, handleSubmit, formState: { errors } } = useForm();
 
@@ -24,9 +24,9 @@ const CreatePost = () => {
                 />
 
                 <View style={styles.extra_content}>
-                        <View><Text>a</Text></View>
-                        <View><Text>a</Text></View>
-                        <View><Text>a</Text></View>
+                        <IconButton icon="image" size={28}/>
+                        <IconButton icon="video"  size={33}/>
+                        
                 </View>
             
             </SafeAreaView>
@@ -41,22 +41,21 @@ const styles = StyleSheet.create({
     flexDirection:'column',
     padding: 5,
     alignItems: "center",
-    justifyContent: "flex-start", // Align items at the top
+    justifyContent: "flex-start", 
   },
   extra_content:{
     flexDirection:'row',
     width:'100%',
-    backgroundColor:'red',
-    height:'50'
+    justifyContent:'flex-start'
     
   },
   content_area: {
     width: "100%",
-    height: 120, // Height for multi-line input
+    height: 50, // Height for multi-line input
     borderWidth: 1,
     borderColor: "#ccc",
     borderRadius: 8,
-    padding: 10,
+    padding: 5,
     textAlignVertical: "top", 
     backgroundColor: "#f9f9f9", 
   },
