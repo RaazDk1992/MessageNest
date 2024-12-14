@@ -4,6 +4,7 @@ import { Provider as PaperProvider, Card, Text, Button } from 'react-native-pape
 import Login from './components/Login';
 import { NavigationContainer } from '@react-navigation/native';
 import AuthNavigation from './components/AuthNavigation';
+import Home from './components/Home';
 
 
 const App = () => {
@@ -11,7 +12,7 @@ const App = () => {
     <NavigationContainer>
       <PaperProvider>
       <SafeAreaView style={styles.container}>
-        <AuthNavigation/>
+        <Home/>
       </SafeAreaView>
     </PaperProvider>
     </NavigationContainer>
