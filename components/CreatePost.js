@@ -13,19 +13,20 @@ const CreatePost = () => {
         <SafeAreaView style={styles.container}>
                 
                 <MNinput
-                control={control} // Control from react-hook-form
-                name="postContent" // Field name
-                placeholder="Your thoughts.." // Placeholder text
-                rules={{ required: "Post content is required" }} // Validation rules
-                error={errors.postContent?.message} // Error message from validation
-                customstyles={styles.content_area} // Custom styles for input
-                multiline={true} // Allow multi-line input
-                numberOfLines={4} // Specify number of lines
+                control={control} 
+                name="postContent" 
+                placeholder="Your thoughts.." 
+                rules={{ required: "Post content is required" }} 
+                error={errors.postContent?.message} 
+                customstyles={styles.content_area} 
+                multiline={true} 
+                numberOfLines={4} 
                 />
-
+                
                 <View style={styles.extra_content}>
                         <IconButton icon="image" size={28}/>
                         <IconButton icon="video"  size={33}/>
+                        <IconButton style={styles.btn_send} icon="send" size={30}/>
                         
                 </View>
             
@@ -59,6 +60,10 @@ const styles = StyleSheet.create({
     textAlignVertical: "top", 
     backgroundColor: "#f9f9f9", 
   },
+  btn_send:{
+    position:'absolute',
+    right:'1%'
+  }
 });
 
 export default CreatePost;
