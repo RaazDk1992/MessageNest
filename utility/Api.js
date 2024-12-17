@@ -1,8 +1,7 @@
 import axios from "axios";
-import EncryptedStorage from "react-native-encrypted-storage";
-import { configureReanimatedLogger } from "react-native-reanimated";
+import * as SecureStore from 'expo-secure-store';
 
-const BASE_URL="http://localhost:8080/api";
+const BASE_URL = "http://192.168.18.30:8080";
 
 const Api = axios.create({
     baseURL: BASE_URL,
@@ -14,33 +13,37 @@ const Api = axios.create({
 });
 
 Api.interceptors.request.use(
-
-    async(config) =>{
+    async (config) => {
         try {
-            const token = await EncryptedStorage.getItem("_token");
-            if(token) {
-                config.headers.Authorization=`Bearer ${token}`;
-
+           
+            const token = await SecureStore.getItem("_token");
+            if (token) {
+                config.headers.Authorization = `Bearer ${token}`;
+            } else {
+                console.warn("Authorization token not found");
             }
 
-            let csrfToken = await EncryptedStorage.getItem("CSRF");
-            if(!CSRF){
-                const response = await axios.get(`${BASE_URL}/api/getcsrf`,{withCredentials:true});
-                csrfToken = response.data.token;
-                EncryptedStorage.setItem("CSRF",csrfToken);
+            let csrfToken = await SecureStore.getItem("CSRF");
 
+            if (!csrfToken) {
+                // Fetch CSRF token if not present
+                const response = await axios.get(`${BASE_URL}/api/getcsrf`, { withCredentials: true });
+                csrfToken = response.data.token;
+
+                
+                await SecureStore.setItem("CSRF", csrfToken);
+            }
+           // console.log("CSRF :" +csrfToken);
+            if (csrfToken) {
+                config.headers["X-XSRF-TOKEN"] = csrfToken;
             }
         } catch (error) {
-            console.log.error(error);
+            console.error("Request interceptor error:", error);
+            throw error; // Propagate error
         }
-
-        if(csrfToken){
-            config.headers["X-XSRF-TOKEN"] = csrfToken;
-        }
-
+        //console.log(config);
         return config;
     }
-
-   
 );
-export default Api
+
+export default Api;

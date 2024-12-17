@@ -46,7 +46,8 @@ const styles = StyleSheet.create({
         borderRadius: 5,
         paddingHorizontal: 10,
         backgroundColor: '#fff',
-        marginTop:10
+        marginTop:10,
+        marginBottom:5
     },
     defaultInput: {
         borderColor: '#ccc', // Grey border by default

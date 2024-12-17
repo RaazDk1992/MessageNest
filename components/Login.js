@@ -1,21 +1,45 @@
 import * as React from 'react';
 import { Image, View, StyleSheet, TouchableOpacity,Text} from 'react-native';
-import {  Button, Card } from 'react-native-paper';
+import {  Button, Card, PaperProvider } from 'react-native-paper';
 import app_logo from '../assets/images/logo-with-name.png';
 import Colors from '../assets/Colors';
 import MNinput from '../utility/MNinput'; 
 import { useForm } from 'react-hook-form'; 
+import Api from '../utility/Api';
+import { jwtDecode } from 'jwt-decode';
+import * as SecuredStorage from 'expo-secure-store';
+import { useTimeCapsuleContext } from '../utility/ContextApi';
 
 const Login = ({navigation}) => {
     const { control, handleSubmit, formState: { errors } } = useForm(); 
+    const{token,setToken} = useTimeCapsuleContext();
 
-    const onSubmit = (data) => {
-        console.log('Form Data:', data);
+    const loginHandler = async(data) => {
+    
+
+        const response =  Api.post("/api/auth/login",data)
+        .then((response)=>{
+            console.log(response);
+            if(response.status ===200 && response.data.jwtToken){
+                setToken(response.data.jwtToken.trim());
+                SecuredStorage.setItem("_token",response.data.jwtToken.trim());
+                const decoded = jwtDecode(response.data.jwtToken);
+                const user = decoded?.sub
+                if (user){
+                    const userd ={ "username": decoded.sub};
+                    SecuredStorage.setItem("current_user",JSON.stringify(userd));
+                  
+                }
+            }
+        })
+        .catch((err)=>console.log(err.response?.data));
         
     };
 
     return (
-        <View style={styles.container}>
+        
+        <PaperProvider>
+            <View style={styles.container}>
             {/* Display logo */}
             <Image source={app_logo} style={styles.logo} />
             
@@ -54,7 +78,7 @@ const Login = ({navigation}) => {
 
                         <Button
                             mode="contained"
-                            onPress={handleSubmit(onSubmit)}
+                            onPress={handleSubmit(loginHandler)}
                             contentStyle={styles.buttonContent}
                             labelStyle={styles.buttonLabel}
                             buttonColor={Colors.bg_primary}
@@ -67,6 +91,7 @@ const Login = ({navigation}) => {
                 </Card.Content>
             </Card>
         </View>
+        </PaperProvider>
     );
 };
 

@@ -5,17 +5,18 @@ import Login from './components/Login';
 import { NavigationContainer } from '@react-navigation/native';
 import AuthNavigation from './components/AuthNavigation';
 import Home from './components/Home';
+import { ContextProvider } from './utility/ContextApi';
 
 
 const App = () => {
   return (
-    <NavigationContainer>
-      <PaperProvider>
-      <SafeAreaView style={styles.container}>
-        <Home/>
-      </SafeAreaView>
-    </PaperProvider>
+    <ContextProvider>
+      <NavigationContainer>
+      
+        <AuthNavigation/>
+    
     </NavigationContainer>
+    </ContextProvider>
   );
 };
 
