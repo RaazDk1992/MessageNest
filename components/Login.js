@@ -12,7 +12,7 @@ import { useTimeCapsuleContext } from '../utility/ContextApi';
 
 const Login = ({navigation}) => {
     const { control, handleSubmit, formState: { errors } } = useForm(); 
-    const{token,setToken} = useTimeCapsuleContext();
+    const{token,setToken,currentUser,setCurrentUser} = useTimeCapsuleContext();
 
     const loginHandler = async(data) => {
     
@@ -28,7 +28,7 @@ const Login = ({navigation}) => {
                 if (user){
                     const userd ={ "username": decoded.sub};
                     SecuredStorage.setItem("current_user",JSON.stringify(userd));
-                  
+                    setCurrentUser(JSON.stringify(userd));
                 }
             }
         })
