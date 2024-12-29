@@ -25,7 +25,7 @@ const AuthNavigation = () => {
       screenOptions={{ headerShown: false, animation: "slide_from_right" }}
     >
       <Stack.Screen name="login" component={Login} />
-      <Stack.Screen name="register" component={Register} />
+      <Stack.Screen name="reginister" component={Register} />
       <Stack.Screen name="feeds" component={Home} />
       <Stack.Screen name="profile" component={Profile} />
     </Stack.Navigator>

@@ -29,6 +29,7 @@ const Login = ({navigation}) => {
                     const userd ={ "username": decoded.sub};
                     SecuredStorage.setItem("current_user",JSON.stringify(userd));
                     setCurrentUser(JSON.stringify(userd));
+                    navigation.navigate("feeds");
                 }
             }
         })
