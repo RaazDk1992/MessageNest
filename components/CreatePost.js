@@ -6,6 +6,7 @@ import { StatusBar } from "react-native";
 import { IconButton } from "react-native-paper";
 import * as ImagePicker from "expo-image-picker";
 import { FlatList } from "react-native-gesture-handler";
+import ApiWithUpload from "../utility/ApiWithUpload";
 
 const CreatePost = () => {
   const { control, handleSubmit, formState: { errors } } = useForm();
@@ -39,6 +40,29 @@ const CreatePost = () => {
     return null;
   };
 
+
+  const submitPost =(data)=>{
+    const formData = new FormData();
+    formData.append("post",data.postContent);
+    selectedMedia.forEach((media,index)=>{
+    
+      formData.append("media",{
+        uri:media.uri,
+        type: media.type ==="image"?media.mimeType||"image/jpeg":"video/mp4",
+        name: `file-${index}.${media.uri.split('.').pop()}`
+
+      })
+
+    });
+
+    try {
+      
+      ApiWithUpload.post("/api/posts/createpost",formData);
+    } catch (error) {
+      console.log(error);
+    }
+   
+  }
   return (
     <>
       <StatusBar barStyle="light-content" translucent={false} />
@@ -81,6 +105,7 @@ const CreatePost = () => {
           <IconButton
             style={styles.btns}
             icon="send"
+            onPress={handleSubmit(submitPost)}
             size={30}
           />
         </View>
