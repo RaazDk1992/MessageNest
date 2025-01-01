@@ -6,7 +6,7 @@ import { StatusBar } from "react-native";
 import { IconButton } from "react-native-paper";
 import * as ImagePicker from "expo-image-picker";
 import { FlatList } from "react-native-gesture-handler";
-import ApiWithUpload from "../utility/ApiWithUpload";
+import Api from "../utility/Api";
 
 const CreatePost = () => {
   const { control, handleSubmit, formState: { errors } } = useForm();
@@ -57,7 +57,7 @@ const CreatePost = () => {
 
     try {
       
-      ApiWithUpload.post("/api/posts/createpost",formData);
+      Api.post("/api/posts/createpost",formData);
     } catch (error) {
       console.log(error);
     }

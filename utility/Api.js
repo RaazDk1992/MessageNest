@@ -6,7 +6,6 @@ const BASE_URL = "http://192.168.18.30:8080";
 const Api = axios.create({
     baseURL: BASE_URL,
     headers: {
-        "Content-Type": "application/json",
         Accept: "application/json",
     },
     withCredentials: true,
@@ -33,7 +32,13 @@ Api.interceptors.request.use(
                 
                 await SecureStore.setItem("CSRF", csrfToken);
             }
-           // console.log("CSRF :" +csrfToken);
+            const isFileUpload = config.data instanceof FormData;
+            if(isFileUpload){
+                config.headers["Content-Type"]="multipart/form-data";
+
+            }else {
+                config.headers["Content-Type"]="application/json";
+            }
             if (csrfToken) {
                 config.headers["X-XSRF-TOKEN"] = csrfToken;
             }
