@@ -1,12 +1,12 @@
 import React, { useState } from "react";
-import { SafeAreaView, StyleSheet, Text, View, Image } from "react-native";
+import { SafeAreaView, StyleSheet, Text, View, Image, StatusBar } from "react-native";
 import { useForm } from "react-hook-form";
 import MNinput from "../utility/MNinput";
-import { StatusBar } from "react-native";
 import { IconButton } from "react-native-paper";
 import * as ImagePicker from "expo-image-picker";
 import { FlatList } from "react-native-gesture-handler";
 import Api from "../utility/Api";
+import Toast from "react-native-toast-message";
 
 const CreatePost = () => {
   const { control, handleSubmit, formState: { errors } } = useForm();
@@ -40,29 +40,44 @@ const CreatePost = () => {
     return null;
   };
 
-
-  const submitPost =(data)=>{
+  const submitPost = (data) => {
     const formData = new FormData();
-    formData.append("post",data.postContent);
-    selectedMedia.forEach((media,index)=>{
-    
-      formData.append("media",{
-        uri:media.uri,
-        type: media.type ==="image"?media.mimeType||"image/jpeg":"video/mp4",
-        name: `file-${index}.${media.uri.split('.').pop()}`
-
-      })
-
+    formData.append("post", data.postContent);
+    selectedMedia.forEach((media, index) => {
+      formData.append("media", {
+        uri: media.uri,
+        type: media.type === "image" ? media.mimeType || "image/jpeg" : "video/mp4",
+        name: `file-${index}.${media.uri.split(".").pop()}`,
+      });
     });
 
     try {
-      
-      Api.post("/api/posts/createpost",formData);
+      Api.post("/api/posts/createpost", formData).then((response)=>{
+        console.log(response);
+        Toast.show({
+          type:'success',
+          position:'bottom',
+          text1:'Post created SuccessfullY!!',
+          visibilityTime:3000,
+          autoHide:true
+        });
+        
+      })
+      .catch((error)=>{
+        Toast.show({
+          type:'error',
+          position:'bottom',
+          text1:error.data,
+          visibilityTime:3000,
+          autoHide:true
+        });
+      })
+      .finally();
     } catch (error) {
       console.log(error);
     }
-   
-  }
+  };
+
   return (
     <>
       <StatusBar barStyle="light-content" translucent={false} />
@@ -109,6 +124,7 @@ const CreatePost = () => {
             size={30}
           />
         </View>
+        <Toast/>
       </SafeAreaView>
     </>
   );
@@ -116,18 +132,13 @@ const CreatePost = () => {
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
-    flexDirection: "column",
-    padding: 5,
-    alignItems: "center",
-    justifyContent: "flex-start",
+    width: "100%",
+    padding: 10,
   },
   extra_content: {
     flexDirection: "row",
     width: "100%",
-    justifyContent: "space-between",
-    alignItems: "center", 
-    marginBottom: 1,
+    alignItems: "center",
   },
   content_area: {
     width: "100%",
@@ -140,15 +151,13 @@ const styles = StyleSheet.create({
     backgroundColor: "#f9f9f9",
   },
   btns: {
-    margin: 0, 
+    margin: 0,
     padding: 0,
   },
   preview_frame: {
     width: "100%",
     maxHeight: 100,
     marginTop: 5,
-    marginBottom: 1,
-    paddingBottom: 2,
   },
   mediaPreview: {
     width: 80,

@@ -11,6 +11,7 @@ const AuthNavigation = () => {
   const Stack = createStackNavigator();
   const { token, isLoading } = useTimeCapsuleContext();
 
+  console.log(token);
   if (isLoading) {
     return (
       <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>

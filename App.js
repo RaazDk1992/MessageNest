@@ -6,6 +6,7 @@ import { NavigationContainer } from '@react-navigation/native';
 import AuthNavigation from './components/AuthNavigation';
 import Home from './components/Home';
 import { ContextProvider } from './utility/ContextApi';
+import Toast from 'react-native-toast-message';
 
 
 const App = () => {

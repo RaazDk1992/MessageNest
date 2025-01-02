@@ -19,7 +19,7 @@ const Login = ({navigation}) => {
 
         const response =  Api.post("/api/auth/login",data)
         .then((response)=>{
-            console.log(response);
+           // console.log(response);
             if(response.status ===200 && response.data.jwtToken){
                 setToken(response.data.jwtToken.trim());
                 SecuredStorage.setItem("_token",response.data.jwtToken.trim());
