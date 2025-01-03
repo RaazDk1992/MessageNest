@@ -6,11 +6,15 @@ import { IconButton } from "react-native-paper";
 import * as ImagePicker from "expo-image-picker";
 import { FlatList } from "react-native-gesture-handler";
 import Api from "../utility/Api";
-import Toast from "react-native-toast-message";
+import Toast, { SuccessToast } from "react-native-toast-message";
+import LottieView from "lottie-react-native";
 
 const CreatePost = () => {
   const { control, handleSubmit, formState: { errors } } = useForm();
   const [selectedMedia, setSelectedMedia] = useState([]);
+
+
+  
 
   const pickMedia = async (mediaType) => {
     try {
@@ -55,11 +59,11 @@ const CreatePost = () => {
       Api.post("/api/posts/createpost", formData).then((response)=>{
         console.log(response);
         Toast.show({
-          type:'success',
-          position:'bottom',
+          type:'customToast',
           text1:'Post created SuccessfullY!!',
           visibilityTime:3000,
-          autoHide:true
+          autoHide:true,
+          props:{eventType:'success'}
         });
         
       })
@@ -69,7 +73,7 @@ const CreatePost = () => {
           position:'bottom',
           text1:error.data,
           visibilityTime:3000,
-          autoHide:true
+          autoHide:false
         });
       })
       .finally();
@@ -124,8 +128,8 @@ const CreatePost = () => {
             size={30}
           />
         </View>
-        <Toast/>
       </SafeAreaView>
+      
     </>
   );
 };
