@@ -6,6 +6,7 @@ import Profile from "../screens/Profile";
 import { useTimeCapsuleContext } from "../utility/ContextApi";
 import { ActivityIndicator, View } from "react-native";
 import Home from "../screens/Home";
+import TabNavigator from "./TabNavigator";
 
 const AuthNavigation = () => {
   const Stack = createStackNavigator();
@@ -22,13 +23,14 @@ const AuthNavigation = () => {
 
   return (
     <Stack.Navigator
-      initialRouteName={token ? "feeds" : "login"} // Navigate based on token availability
+      initialRouteName={token ? "home" : "login"} // Navigate based on token availability
       screenOptions={{ headerShown: false, animation: "slide_from_right" }}
     >
       <Stack.Screen name="login" component={Login} />
       <Stack.Screen name="reginister" component={Register} />
       <Stack.Screen name="feeds" component={Home} />
       <Stack.Screen name="profile" component={Profile} />
+      <Stack.Screen name="home" component={TabNavigator}/>
     </Stack.Navigator>
   );
 };

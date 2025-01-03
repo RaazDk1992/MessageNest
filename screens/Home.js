@@ -1,6 +1,6 @@
 import { StyleSheet, View } from "react-native";
-import CreatePost from "./CreatePost";
-import Feed from "./Feed";
+import CreatePost from "./../components/CreatePost";
+import Feed from "./../components/Feed";
 
 const Home = () => {
   return (
