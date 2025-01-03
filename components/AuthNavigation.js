@@ -1,11 +1,11 @@
 import React, { useEffect } from "react";
 import { createStackNavigator } from "@react-navigation/stack";
-import Login from "./Login";
-import Register from "./Register";
-import Home from "./Home";
-import Profile from "./Profile";
+import Login from "../screens/Login";
+import Register from "../screens/Register";
+import Profile from "../screens/Profile";
 import { useTimeCapsuleContext } from "../utility/ContextApi";
 import { ActivityIndicator, View } from "react-native";
+import Home from "../screens/Home";
 
 const AuthNavigation = () => {
   const Stack = createStackNavigator();

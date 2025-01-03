@@ -69,10 +69,12 @@ const CreatePost = () => {
       })
       .catch((error)=>{
         Toast.show({
-          type:'error',
+          type:'customToast',
           position:'bottom',
           text1:error.data,
+          text2:'Could not create post',
           visibilityTime:3000,
+          props:{eventType:'fail'},
           autoHide:false
         });
       })
