@@ -5,12 +5,16 @@ import app_logo from '../assets/images/logo-with-name.png';
 import Colors from '../assets/Colors';
 import MNinput from '../utility/MNinput';
 import { useForm } from 'react-hook-form';
+import Api from '../utility/Api';
 
 const Register = ({ navigation }) => {
     const { control, handleSubmit, formState: { errors } } = useForm();
 
     const onSubmit = (data) => {
-        console.log('Form Data:', data);
+        console.log(JSON.stringify(data));
+        Api.post("/api/auth/register",data).then((response)=>{})
+        .catch((error)=>{})
+        .finally((error)=>console.log(error));
     };
 
     return (
@@ -28,7 +32,7 @@ const Register = ({ navigation }) => {
                     <Card.Content>
                         <MNinput
                             control={control}
-                            name="firstname"
+                            name="firstName"
                             label="First Name"
                             placeholder="First Name"
                             rules={{ required: 'First Name is required' }}
@@ -36,11 +40,19 @@ const Register = ({ navigation }) => {
                         />
                         <MNinput
                             control={control}
-                            name="lastname"
+                            name="lastName"
                             label="Last Name"
                             placeholder="Last Name"
                             rules={{ required: 'Last Name is required' }}
                             error={errors.lastname?.message}
+                        />
+                        <MNinput
+                            control={control}
+                            name="username"
+                            label="Username"
+                            placeholder="your username EX: Jon_Doe"
+                            rules={{ required:false }}
+                            error={errors.username?.message}
                         />
                         <MNinput
                             control={control}
