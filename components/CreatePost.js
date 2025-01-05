@@ -7,7 +7,6 @@ import * as ImagePicker from "expo-image-picker";
 import { FlatList } from "react-native-gesture-handler";
 import Api from "../utility/Api";
 import Toast, { SuccessToast } from "react-native-toast-message";
-import LottieView from "lottie-react-native";
 
 const CreatePost = () => {
   const { control, handleSubmit, formState: { errors } } = useForm();

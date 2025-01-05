@@ -5,6 +5,7 @@ import { ContextProvider } from './utility/ContextApi';
 import AuthNavigation from './components/AuthNavigation';
 import Toast from 'react-native-toast-message';
 import LottieView from 'lottie-react-native';
+import Details from './screens/Details';
 
 // Get screen height for responsiveness
 const { height, width } = Dimensions.get('window');
@@ -35,12 +36,13 @@ const toastConfig = {
 
 const App = () => {
   return (
-    <ContextProvider>
-      <NavigationContainer>
-        <AuthNavigation />
-        <Toast config={toastConfig} />
-      </NavigationContainer>
-    </ContextProvider>
+    // <ContextProvider>
+    //   <NavigationContainer>
+    //     <AuthNavigation />
+    //     <Toast config={toastConfig} />
+    //   </NavigationContainer>
+    // </ContextProvider>
+    <Details/>
   );
 };
 
