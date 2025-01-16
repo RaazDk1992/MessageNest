@@ -30,8 +30,17 @@ const Details = ({ navigation }) => {
     };
 
     const onSubmit = (data) => {
-        console.log(JSON.stringify(data));
-        Api.post("/api/auth/register", data)
+        
+        const  fdata = new FormData();
+        fdata.append("bio",data.bio);
+        selectedMedia.forEach((media,index)=>{
+            fdata.append("pic",{
+                uri:media.uri,
+                type: media.type === "image" ? media.mimeType || "image/jpeg" : "video/mp4",
+                name: `file-${index}.${media.uri.split(".").pop()}`,
+            })
+        });
+        Api.post("/api/user/update/details", data)
             .then((response) => { })
             .catch((error) => { })
             .finally((error) => console.log(error));
@@ -46,7 +55,7 @@ const Details = ({ navigation }) => {
             
             <View style={styles.header}>
                 <Button 
-                    onPress={() => navigation.goBack()} // Adjust navigation as needed
+                    onPress={() => navigation.navigate("home")} 
                     labelStyle={styles.skipButtonLabel}
                 >
                     Skip this
