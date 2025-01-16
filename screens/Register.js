@@ -6,15 +6,34 @@ import Colors from '../assets/Colors';
 import MNinput from '../utility/MNinput';
 import { useForm } from 'react-hook-form';
 import Api from '../utility/Api';
+import Toast from 'react-native-toast-message';
 
 const Register = ({ navigation }) => {
     const { control, handleSubmit, formState: { errors } } = useForm();
 
     const onSubmit = (data) => {
-        console.log(JSON.stringify(data));
-        Api.post("/api/auth/register",data).then((response)=>{})
-        .catch((error)=>{})
-        .finally((error)=>console.log(error));
+       // console.log(JSON.stringify(data));
+        Api.post("/api/auth/register",data).then((response)=>{
+        if(response.status ==200){
+           
+            navigation.navigate('details', { userId: response.data.id });
+        } else{
+           
+        }
+            
+        })
+        .catch((error)=>{
+            
+            Toast.show({
+                     type:'customToast',
+                     text1:'OOPs, '+error.response.data.message,
+                     visibilityTime:3000,
+                     autoHide:true,
+                     props:{eventType:'fail'}
+                   });
+
+        })
+        .finally();
     };
 
     return (

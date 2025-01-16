@@ -7,6 +7,7 @@ import { useTimeCapsuleContext } from "../utility/ContextApi";
 import { ActivityIndicator, View } from "react-native";
 import Home from "../screens/Home";
 import TabNavigator from "./TabNavigator";
+import Details from "../screens/Details";
 
 const AuthNavigation = () => {
   const Stack = createStackNavigator();
@@ -31,6 +32,7 @@ const AuthNavigation = () => {
       <Stack.Screen name="feeds" component={Home} />
       <Stack.Screen name="profile" component={Profile} />
       <Stack.Screen name="home" component={TabNavigator}/>
+      <Stack.Screen name="details" component={Details}/>
     </Stack.Navigator>
   );
 };

@@ -36,13 +36,13 @@ const toastConfig = {
 
 const App = () => {
   return (
-    // <ContextProvider>
-    //   <NavigationContainer>
-    //     <AuthNavigation />
-    //     <Toast config={toastConfig} />
-    //   </NavigationContainer>
-    // </ContextProvider>
-    <Details/>
+    <ContextProvider>
+      <NavigationContainer>
+        <AuthNavigation />
+        <Toast config={toastConfig} />
+      </NavigationContainer>
+    </ContextProvider>
+    // <Details/>
   );
 };
 

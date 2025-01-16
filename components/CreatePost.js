@@ -13,8 +13,6 @@ const CreatePost = () => {
   const [selectedMedia, setSelectedMedia] = useState([]);
 
 
-  
-
   const pickMedia = async (mediaType) => {
     try {
       const result = await ImagePicker.launchImageLibraryAsync({
